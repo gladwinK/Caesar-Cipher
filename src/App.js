@@ -1,7 +1,7 @@
 // react stuff
-import Reactm, { useState } from 'react';
+import React, { useState } from 'react';
 // reactstrap
-import { Container, Button, ButtonGroup, Row, Col, Card, CardColumns,CardDeck, CardBody, CardText, CardTitle, Input, CardGroup } from 'reactstrap'
+import { Container, Button, ButtonGroup, Row, Col, Card, CardHeader, CardFooter, CardColumns, CardDeck, CardBody, CardText, CardTitle, Input, CardGroup } from 'reactstrap'
 // toast
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,8 +14,9 @@ function App() {
   const [value, setValue] = useState('');
   const [key, setKey] = useState(0);
   const [cipher, setCipher] = useState('')
-
+  const [guess, setGuess] = useState('')
   function generateCaesarCipher() {
+
     if (key < 0) {
       setCipher(value);
       return;
@@ -36,38 +37,85 @@ function App() {
       }
 
     }
-    setCipher(ciphertext.join(''))
+    return ciphertext.join()
+  }
+  function getAnswer(){
+    const answer = generateCaesarCipher()
+    setCipher(answer)
+  }
+  function checkGuess(){
+    const answer = generateCaesarCipher()
+    if( answer === guess)
+    toast.success('Correct Guess 🙂')
+    else{
+      toast.error('Wrong Guess 🥲')
+    }
+
   }
   return (
 
-    <Container fluid>
+    <Container fluid className='bg-dark App' >
       <ToastContainer />
-      <h1>Caesar-Cipher Calculation</h1>
-      <CardGroup>
 
-        {/* <CardColumns> */}
-        <CardDeck>
-          <Card>
-            <CardTitle className='text-center'>Enter your Value:</CardTitle>
-            <Input id='value' type='text' placeholder='enter your value' onInput={(e) => setValue(e.target.value)} />
-          </Card>
+      <h1 className='text-white text-center p-2 mb-5'>Caesar-Cipher Calculation</h1>
 
-          <Card>
-            <CardTitle className='text-center'>Enter key : </CardTitle>
-            <Input id='key' type='number' placeholder='enter a natural number' onInput={(e) => setKey(e.target.value)} />
-          </Card>
+      {/* The first Row */}
+      <Row xs='1'>
+        <Col md={5} className='offset-md-3'>
+          <div className='grid'>
 
-          <Card>
-            <CardTitle>Caesar Cipher : </CardTitle>
-            <CardText> {cipher} </CardText>
-          </Card>
-        </CardDeck>
-        {/* </CardColumns> */}
-      </CardGroup>
+            <Card className=' bg-yellow '>
+              <CardHeader className='text-center'><h3>Plaintext:</h3></CardHeader>
+              <CardBody className='box'>
 
-      <ButtonGroup className='p-3'>
-        <Button className='m-2' color='danger' onClick={() => generateCaesarCipher()}>Get Answer</Button>
-        <Button className='m-2' color='success' >Evaluate</Button>
+                <Input className='' id='value' type='text' placeholder='enter your value' onInput={(e) => setValue(e.target.value)} />
+              </CardBody>
+              <CardFooter className='text-muted'>Enter text here to get its Cipher</CardFooter>
+            </Card>
+
+            <Card className=' bg-yellow '>
+              <CardHeader className='text-center '> <h3>Key :</h3> </CardHeader>
+              <CardBody className='box'>
+
+                <Input className='' id='key' type='number' placeholder='enter a natural number' onInput={(e) => setKey(e.target.value)} />
+              </CardBody>
+              <CardFooter className='text-muted'>Enter a Natural number</CardFooter>
+            </Card>
+
+          </div>
+        </Col>
+      </Row>
+
+      {/* THe Second Row */}
+      <Row xs={1} className='mt-5'>
+        <Col md={5} className='offset-md-3'>
+          <div className='grid'>
+
+            <Card className=' bg-green '  >
+              <CardHeader className='text-center'> <h3>Caesar Cipher :  </h3></CardHeader>
+              <CardBody className='box'>
+
+                <Input className='m-1 form-control-plaintext' id='key' type='text' readOnly value={cipher} />
+              </CardBody>
+              <CardFooter className='text-muted'>Correct Answer</CardFooter>
+            </Card>
+
+            <Card className='bg-red'>
+              <CardHeader className='text-center'><h3>Guess Answer </h3></CardHeader>
+              <CardBody className='box'>
+                <Input className=''onInput={(e)=>setGuess(e.target.value)} ></Input>
+              </CardBody>
+              <CardFooter className='text-muted'>Guess the cipher</CardFooter>
+            </Card>
+
+          </div>
+        </Col>
+      </Row>
+
+      {/* The Button Group */}
+      <ButtonGroup className='p-3 offset-md-4'>
+        <Button className='m-2 bg-green' onClick={getAnswer}>Get Answer</Button>
+        <Button className='m-2 bg-red ' onClick={ checkGuess}>Check my guess</Button>
       </ButtonGroup>
     </Container>
   );

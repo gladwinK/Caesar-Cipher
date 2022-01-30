@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .App-logo {
@@ -35,4 +36,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+.bg-yellow {
+  background: #fcce02;
+}
+.fg-light {
+  color: #fff;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+}
+.box {
+  width: auto;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg-red{
+  background-color: #B9345A;
+}
+/* #DE4839 #B9345A */
+
+.bg-green{
+  background-color: #6EC72D;
 }
