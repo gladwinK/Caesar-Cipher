@@ -15,6 +15,7 @@ function App() {
   const [key, setKey] = useState(0);
   const [cipher, setCipher] = useState('')
   const [guess, setGuess] = useState('')
+
   function generateCaesarCipher() {
 
     if (key < 0) {
@@ -37,17 +38,17 @@ function App() {
       }
 
     }
-    return ciphertext.join()
+    return ciphertext.join('')
   }
-  function getAnswer(){
+  function getAnswer() {
     const answer = generateCaesarCipher()
     setCipher(answer)
   }
-  function checkGuess(){
+  function checkGuess() {
     const answer = generateCaesarCipher()
-    if( answer === guess)
-    toast.success('Correct Guess 🙂')
-    else{
+    if (answer === guess)
+      toast.success('Correct Guess 🙂')
+    else {
       toast.error('Wrong Guess 🥲')
     }
 
@@ -103,7 +104,7 @@ function App() {
             <Card className='bg-red'>
               <CardHeader className='text-center'><h3>Guess Answer </h3></CardHeader>
               <CardBody className='box'>
-                <Input className=''onInput={(e)=>setGuess(e.target.value)} ></Input>
+                <Input className='' onInput={(e) => setGuess(e.target.value)} ></Input>
               </CardBody>
               <CardFooter className='text-muted'>Guess the cipher</CardFooter>
             </Card>
@@ -115,7 +116,7 @@ function App() {
       {/* The Button Group */}
       <ButtonGroup className='p-3 offset-md-4'>
         <Button className='m-2 bg-green' onClick={getAnswer}>Get Answer</Button>
-        <Button className='m-2 bg-red ' onClick={ checkGuess}>Check my guess</Button>
+        <Button className='m-2 bg-red ' onClick={checkGuess}>Check my guess</Button>
       </ButtonGroup>
     </Container>
   );
