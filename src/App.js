@@ -40,6 +40,7 @@ function App() {
     return ciphertext.join('')
   }
   function getAnswer() {
+
     if (key < 0 || key % 1 !== 0) {
 
       return toast.error('Key must be a natural number', {
