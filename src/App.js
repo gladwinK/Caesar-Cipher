@@ -18,11 +18,10 @@ function App() {
 
   function generateCaesarCipher() {
 
-    if (key < 0) {
-      setCipher(value);
-      return;
-    }
+    
+    console.log('key = ', key);
     const keymod = key % 26;
+    console.log('keymod = ', keymod);
     let ciphertext = [...value];
 
     for (var i = 0; i < ciphertext.length; i++) {
@@ -41,6 +40,12 @@ function App() {
     return ciphertext.join('')
   }
   function getAnswer() {
+    if (key < 0 || key % 1 != 0) {
+      // setCipher(value);
+      return toast.error('Key must be a natural number', {
+        autoClose : 2500
+      });
+    }
     const answer = generateCaesarCipher()
     setCipher(answer)
   }
